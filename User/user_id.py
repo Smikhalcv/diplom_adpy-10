@@ -1,6 +1,8 @@
 import requests
 
 def id_user(token):
+    """Получает id пользователя из его screen_name или непосредственно id"""
+
     user_id = input('Укажите ID или screen_name пользователя, для которого будет выполняться поиск: ')
     try:
         id = int(user_id)

@@ -2,7 +2,10 @@ import requests
 import webbrowser
 import re
 
+
 class Token():
+    """Получает токен, открывает браузер по умолчанию, для авторизации,
+    из строки полченного урла извлекает токен"""
 
     def __init__(self):
         self.URL = 'https://oauth.vk.com/authorize'
@@ -20,13 +23,12 @@ class Token():
         request = requests.get(self.URL, params=self.param)
 
         webbrowser.open_new(request.url)
-
+        # Выполняет запрос строки, пока не будет введён урл
         while True:
             print('''Скопируйте сюда строку полученного урла из адресной строки браузера, 
 после поддверждения прав.''')
-            token = input('''(после ссылки нажмите пробел)
+            token = input('''(ВНИМАНИЕ!!! после ссылки нажмите пробел)
 - ''')
-            # if len(token) >= 98:
             pattern = re.compile('\S*access_token=(\S{85})\S*')
             new_pattern = r'\1'
             ACCESS_TOKEN = pattern.sub(new_pattern, token)
@@ -38,6 +40,7 @@ class Token():
                 print('Неправильно введена ссылка')
 
         return ACCESS_TOKEN
+
 
 if __name__ in '__main__':
     User = Token()
