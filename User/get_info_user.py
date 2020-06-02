@@ -18,17 +18,9 @@ class Info():
         }
 
     def get_info(self):
+        """Получает информацию о пользователе"""
         try:
             response = requests.get(f'{self.URL}users.get', params=self.param).json()['response'][0]
         except KeyError:
             print('Отсутвствует ключ "response", возможно устарел токен!')
         return response
-
-    def json_info(self):
-        try:
-            response = requests.get(f'{self.URL}users.get', params=self.param).json()['response'][0]
-        except KeyError:
-            print('Отсутвствует ключ "response", возможно устарел токен!')
-
-        with open(f'Cache\\{self.user_id}-info.json', 'w', encoding='utf-8') as file:
-            json.dump(response, file, ensure_ascii=False, indent=2)

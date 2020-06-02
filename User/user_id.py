@@ -14,3 +14,8 @@ def id_user(token):
         return id
     else:
         return id
+
+
+if __name__ in '__main__':
+    token = '1bca69ca0df3140a3a742fac61562fb6db21b434ba5a62929984b3d15c190bfd9710e2ce56326e823dfe6'
+    print(id_user(token))
