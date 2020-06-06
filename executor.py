@@ -3,10 +3,10 @@ import json
 from mongo_db import Mongo_DB
 
 
-def get_result(token, user_id):
+def write_read_DB(user_id):
     '''Получается словарь из БД, где ключ это id человека, а значение - степень его совместимости,
-    преобразует его и выводит первых 10 человек с наибольшей совместимостью
-    переписывает БД новыми данными, обновляя их'''
+        преобразует его и выводит первых 10 человек с наибольшей совместимостью
+        переписывает БД новыми данными, обновляя их'''
     database = Mongo_DB('VKinder')
     database.create_db()
     database.create_coll(f'cache {user_id}')
@@ -16,9 +16,9 @@ def get_result(token, user_id):
     print(list_for_photo)
     dict_id = {}
     dict_id[f'{user_id}'] = list_id
-    database.del_doc_coll()
     list_dict_id = []
     list_dict_id.append(dict_id)
+    database.del_doc_coll()
     database.input_data_many(list_dict_id)  # вносит оставшихся людей в колеекцию cache id для дальнейшей работы
     database.create_coll(f'{user_id}')
     dict_photo = {}
@@ -27,6 +27,13 @@ def get_result(token, user_id):
     list_dict_photo = []
     list_dict_photo.append(dict_photo)
     database.input_data_many(list_dict_photo)  # вносит id 10 человек, которые будут выведены пользователю
+    return list_for_photo
+
+
+def get_result(token, user_id):
+    """Выполняет execute запрос, получая фото профилей топ-10, сортирует фото и выбирает из них топ-3
+    создаёт файл с результатом"""
+    list_for_photo = write_read_DB(user_id)
     str_code = ''
     # Выполняет execute запрос в апи вк, для 10 человек для получения их фотографий профиля
     for i in list_for_photo:

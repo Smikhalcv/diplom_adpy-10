@@ -12,70 +12,151 @@ class Search():
     # Получает данный для поиска исходя информации пользователя
     def __init__(self, token, user_id, range=2):
         self.user_id = user_id
-        self.parametr = ''
-        self.param_search = {'fields': self.fields,
-                             'access_token': self.token,
-                             'age_from': self.age - self.range,
-                             'age_to': self.age + self.range,
-                             'city': self.city_id,
-                             'sort': 1,
-                             'count': 1000,
-                             'v': 5.103,
-                             }
-        if self.sex == 1:
-            self.param_search['sex'] = 2
-        elif self.sex == 2:
-            self.param_search['sex'] = 1
+        # self.parametr = ''
+        # self.param_search = {
+        #                      # 'fields': self.fields,
+        #                      # 'access_token': self.token,
+        #                      # 'age_from': self.age - self.range,
+        #                      # 'age_to': self.age + self.range,
+        #                      # 'city': self.city_id,
+        #                      'sort': 1,
+        #                      'count': 1000,
+        #                      'v': 5.103,
+        #                      }
+        #
+        #         # Изменяет по желанию критерии для поиска
+        #         print('''Желаете указать другие параметры для поиска? (да/нет)
+        # Иначе критериями для поиска будет информация о пользователе''')
+        #         # выполняет запросы для получения id города для поиска
+        #         flag = input('- ')
+        #         if flag.lower().startswith('д'):
+        #             param_id_city = {'access_token': self.token,
+        #                              'v': 5.103,
+        #                              }
+        #             print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
+        #             while True:
+        #                 try:
+        #                     country_id = int(input('- '))
+        #                     break
+        #                 except ValueError:
+        #                     continue
+        #             if country_id in ['1', '2', '3']:
+        #                 print('Укажите город для поиска')
+        #                 city = input()
+        #                 param_id_city['country_id'] = country_id
+        #                 param_id_city['q'] = city
+        #             response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
+        #             self.param_search['city'] = response['response']['items'][0]['id']
+        #             print('Укажите возраст кандидатов для поиска:')
+        #             while True:
+        #                 try:
+        #                     self.age = int(input('- '))
+        #                     break
+        #                 except ValueError:
+        #                     continue
+        #             print('Укажите погрешность возраст для поиска:')
+        #             while True:
+        #                 try:
+        #                     self.range = int(input('- '))
+        #                     break
+        #                 except ValueError:
+        #                     continue
+        #             self.parametr = self.get_parametr()
+        self.token = token
+        self.change_parametr()
+        # info = Info(self.user_id, self.parametr, token)
+        # user_info = info.get_info()
+        # self.info = user_info
+        # self.city_id = self.info['city']['id']
+
+        # self.fields = info.fields + self.parametr
+        # self.sex = self.info['sex']
+        # if self.sex == 1:
+        #     self.param_search['sex'] = 2
+        # elif self.sex == 2:
+        #     self.param_search['sex'] = 1
+        # b = datetime.datetime.now()
+        # dt = datetime.datetime.strptime(self.info['bdate'], '%d.%m.%Y')
+        # self.age = round((b - dt).days / 365)
+        # self.range = range
+        # self.list_people = []
+
+    def change_parametr(self):
         # Изменяет по желанию критерии для поиска
+        self.param_search = {
+            'access_token': self.token,
+            'sort': 1,
+            'count': 1000,
+            'v': 5.103,
+        }
         print('''Желаете указать другие параметры для поиска? (да/нет)
 Иначе критериями для поиска будет информация о пользователе''')
         # выполняет запросы для получения id города для поиска
         flag = input('- ')
         if flag.lower().startswith('д'):
-            param_id_city = {'access_token': self.token,
-                             'v': 5.103,
-                             }
-            print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
-            while True:
-                try:
-                    country_id = int(input('- '))
-                    break
-                except ValueError:
-                    continue
-            if country_id in ['1', '2', '3']:
-                print('Укажите город для поиска')
-                city = input()
-                param_id_city['country_id'] = country_id
-                param_id_city['q'] = city
-            response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
-            self.param_search['city'] = response['response']['items'][0]['id']
-            print('Укажите возраст кандидатов для поиска:')
-            while True:
-                try:
-                    self.age = int(input('- '))
-                    break
-                except ValueError:
-                    continue
-            print('Укажите погрешность возраст для поиска:')
-            while True:
-                try:
-                    self.range = int(input('- '))
-                    break
-                except ValueError:
-                    continue
+            # param_id_city = {'access_token': self.token,
+            #                  'v': 5.103,
+            #                  }
+            # print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
+            # while True:
+            #     try:
+            #         country_id = int(input('- '))
+            #         break
+            #     except ValueError:
+            #         continue
+            # if country_id in ['1', '2', '3']:
+            #     print('Укажите город для поиска')
+            #     city = input()
+            #     param_id_city['country_id'] = country_id
+            #     param_id_city['q'] = city
+            # response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
+            # self.param_search['city'] = response['response']['items'][0]['id']
+            # print('Укажите возраст кандидатов для поиска:')
+            # while True:
+            #     try:
+            #         self.age = int(input('- '))
+            #         break
+            #     except ValueError:
+            #         continue
+            # print('Укажите погрешность возраст для поиска:')
+            # while True:
+            #     try:
+            #         self.range = int(input('- '))
+            #         break
+            #     except ValueError:
+            #         continue
             self.parametr = self.get_parametr()
-        info = Info(self.user_id, self.parametr, token)
-        user_info = info.get_info()
-        self.info = user_info
-        self.city_id = self.info['city']['id']
-        self.token = token
-        self.fields = info.fields + self.parametr
-        self.sex = self.info['sex']
-        b = datetime.datetime.now()
-        dt = datetime.datetime.strptime(self.info['bdate'], '%d.%m.%Y')
-        self.age = round((b - dt).days / 365)
-        self.range = range
-        self.list_people = []
+            info = Info(self.user_id, self.parametr, self.token)
+            user_info = info.get_info()
+            self.info = user_info
+            self.fields = info.fields + self.parametr
+            self.sex = self.info['sex']
+            if self.sex == 1:
+                self.param_search['sex'] = 2
+            elif self.sex == 2:
+                self.param_search['sex'] = 1
+            try:
+                self.param_search['city'] = self.get_city()
+            except IndexError:
+                self.param_search['city'] = self.info['city']['id']
+            self.get_age()
+            self.get_range()
+        else:
+            self.parametr = ''
+            info = Info(self.user_id, self.parametr, self.token)
+            user_info = info.get_info()
+            self.info = user_info
+            self.fields = info.fields + self.parametr
+            self.sex = self.info['sex']
+            if self.sex == 1:
+                self.param_search['sex'] = 2
+            elif self.sex == 2:
+                self.param_search['sex'] = 1
+            b = datetime.datetime.now()
+            dt = datetime.datetime.strptime(self.info['bdate'], '%d.%m.%Y')
+            self.age = round((b - dt).days / 365)
+            self.range = range
+            self.param_search['city'] = self.info['city']['id']
 
     def get_parametr(self):
         '''Преобразует дополнительные параметры для поиска в строку, необходимую для запроса'''
@@ -89,9 +170,8 @@ class Search():
         list_access_parametr = []
         for i in (str_parametr + ', help').split(','):
             list_access_parametr.append(i.strip())
-        print('''Укажите другие необходимые дополнительные параметры или пустой параметр, если закончили перечисление или доп. параметр не 
-        нужен.
-        (уже введены день рождение, пол, город, интересы; если не знаете что ввести введите help, для отображения команд)''')
+        print('''Укажите пустой параметр, если закончили перечисление или доп. параметр не нужен.
+(если не знаете что ввести введите help, для отображения команд)''')
         input_parametr = True
         list_parametr = []
         while input_parametr:  # Просит вводить параметр до тех пор, пока не будет введён пустой
@@ -99,16 +179,53 @@ class Search():
             if input_parametr in list_access_parametr:
                 if input_parametr == 'help':
                     print('''Доступные значения: photo_id, verified, sex, bdate, city, country, home_town,
-                online, domain, has_mobile, contacts, site, education, universities, schools, status,
-                last_seen, followers_count, common_count, occupation, nickname, relatives, relation,
-                personal, connections, exports, activities, interests, music, movies, tv, books,
-                games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message,
-                can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo,
-                is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group.''')
+online, domain, has_mobile, contacts, site, education, universities, schools, status,
+last_seen, followers_count, common_count, occupation, nickname, relatives, relation,
+personal, connections, exports, activities, interests, music, movies, tv, books,
+games, about, quotes, can_post, can_see_all_posts, can_see_audio, can_write_private_message,
+can_send_friend_request, is_favorite, is_hidden_from_feed, timezone, screen_name, maiden_name, crop_photo,
+is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_be_invited_group.''')
                 else:
                     list_parametr.append(input_parametr)
         parametr = ','.join(list_parametr)
         return parametr
+
+    def get_city(self):
+        param_id_city = {'access_token': self.token,
+                         'v': 5.103,
+                         }
+        print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
+        while True:
+            try:
+                country_id = int(input('- '))
+                break
+            except ValueError:
+                continue
+        if str(country_id) in ['1', '2', '3']:
+            print('Укажите город для поиска')
+            city = input()
+            param_id_city['country_id'] = country_id
+            param_id_city['q'] = city
+        response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
+        return response['response']['items'][0]['id']
+
+    def get_age(self):
+        print('Укажите возраст кандидатов для поиска:')
+        while True:
+            try:
+                self.age = int(input('- '))
+                break
+            except ValueError:
+                continue
+
+    def get_range(self):
+        print('Укажите погрешность возраст для поиска:')
+        while True:
+            try:
+                self.range = int(input('- '))
+                break
+            except ValueError:
+                continue
 
     def search_vk(self):
         """Функция запроса поиска"""

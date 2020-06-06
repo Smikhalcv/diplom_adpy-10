@@ -34,11 +34,11 @@ class Token():
 после подтверждения прав.''')
             token = input('''(ВНИМАНИЕ!!! после ссылки нажмите пробел)
 - ''')
-            pattern = re.compile('\S*access_token=(\S{85})\S*')
+            pattern = re.compile('\S*access_token=(\S{85})\S*\s*')
             new_pattern = r'\1'
             ACCESS_TOKEN = pattern.sub(new_pattern, token)
-            if len(ACCESS_TOKEN) == 86:
-                ACCESS_TOKEN = ACCESS_TOKEN[:-1]
+            if len(ACCESS_TOKEN) == 85:
+                ACCESS_TOKEN = ACCESS_TOKEN
                 break
             else:
                 print('Неправильно введена ссылка')
@@ -69,4 +69,6 @@ class Token():
 
 
 if __name__ in '__main__':
-    pass
+    token = Token()
+    access_token = token.read_token()
+    print(access_token)
