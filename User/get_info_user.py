@@ -19,15 +19,16 @@ class Info():
     def get_info(self):
         """Получает информацию о пользователе"""
         try:
-            response = requests.get(f'{self.URL}users.get', params=self.param).json()['response'][0]
+            resp = requests.get(f'{self.URL}users.get', params=self.param).json()['response'][0]
         except KeyError:
             print('Отсутвствует ключ "response", возможно устарел токен!')
-        return response
+        else:
+            return resp
 
 
 if __name__ in '__main__':
-    id = 12684534564312
+    id = 11111111111111111111111111111
     par = ''
-    token = '406685f1faab8bbb98bc5863684ea830f977b56b8dd54585d9a028d179253bffb3b3d57ef84fb227599cf'
+    token = 'd021bd5d2c897fc6ae5b2fd4c2c222c372b6531c8b1305a0022430cedc80c8ef1eb09abbe248f7097ca75'
     user = Info(id, par, token)
-    print(user.get_info())
+    user.get_info()

@@ -16,11 +16,13 @@ if __name__ in '__main__':
         flag = input('- ')
         if flag.lower().startswith('д'):
             user = Search(access_token, user_id)
+            user.change_parametr()
             value_compability = user.compability()
             get_result(access_token, user_id)
         else:
             get_result(access_token, user_id)
     if user_id not in database.show_coll():
         user = Search(access_token, user_id)
+        user.change_parametr()
         value_compability = user.compability()
         get_result(access_token, user_id)

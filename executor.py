@@ -13,7 +13,6 @@ def write_read_DB(user_id):
     database.read()
     list_for_photo = database.data[0][user_id][:10]  # 10 человек наиболее совместимых
     list_id = database.data[0][user_id][10:]  # Оставшиеся люди из поиска
-    print(list_for_photo)
     dict_id = {}
     dict_id[f'{user_id}'] = list_id
     list_dict_id = []
@@ -65,7 +64,7 @@ def get_result(token, user_id):
         for l in sortering:
             data['url_photo'].append(photo_dict[l])
         list_photo.append(data)
-    with open(f'Result\\{user_id}.json', 'w', encoding='utf-8') as file:
+    with open(f'D:\\adpy\\diplom\\Result\\{user_id}.json', 'w', encoding='utf-8') as file:
         json.dump(list_photo, file, ensure_ascii=False, indent=2)
     print(f'Файл {user_id}.json с топ 10 пользователей создан в папке Result!')
 

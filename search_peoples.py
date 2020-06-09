@@ -10,76 +10,10 @@ class Search():
     '''Класс для поиска людей в вк'''
 
     # Получает данный для поиска исходя информации пользователя
-    def __init__(self, token, user_id, range=2):
+    def __init__(self, token, user_id):
         self.user_id = user_id
-        # self.parametr = ''
-        # self.param_search = {
-        #                      # 'fields': self.fields,
-        #                      # 'access_token': self.token,
-        #                      # 'age_from': self.age - self.range,
-        #                      # 'age_to': self.age + self.range,
-        #                      # 'city': self.city_id,
-        #                      'sort': 1,
-        #                      'count': 1000,
-        #                      'v': 5.103,
-        #                      }
-        #
-        #         # Изменяет по желанию критерии для поиска
-        #         print('''Желаете указать другие параметры для поиска? (да/нет)
-        # Иначе критериями для поиска будет информация о пользователе''')
-        #         # выполняет запросы для получения id города для поиска
-        #         flag = input('- ')
-        #         if flag.lower().startswith('д'):
-        #             param_id_city = {'access_token': self.token,
-        #                              'v': 5.103,
-        #                              }
-        #             print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
-        #             while True:
-        #                 try:
-        #                     country_id = int(input('- '))
-        #                     break
-        #                 except ValueError:
-        #                     continue
-        #             if country_id in ['1', '2', '3']:
-        #                 print('Укажите город для поиска')
-        #                 city = input()
-        #                 param_id_city['country_id'] = country_id
-        #                 param_id_city['q'] = city
-        #             response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
-        #             self.param_search['city'] = response['response']['items'][0]['id']
-        #             print('Укажите возраст кандидатов для поиска:')
-        #             while True:
-        #                 try:
-        #                     self.age = int(input('- '))
-        #                     break
-        #                 except ValueError:
-        #                     continue
-        #             print('Укажите погрешность возраст для поиска:')
-        #             while True:
-        #                 try:
-        #                     self.range = int(input('- '))
-        #                     break
-        #                 except ValueError:
-        #                     continue
-        #             self.parametr = self.get_parametr()
         self.token = token
-        self.change_parametr()
-        # info = Info(self.user_id, self.parametr, token)
-        # user_info = info.get_info()
-        # self.info = user_info
-        # self.city_id = self.info['city']['id']
-
-        # self.fields = info.fields + self.parametr
-        # self.sex = self.info['sex']
-        # if self.sex == 1:
-        #     self.param_search['sex'] = 2
-        # elif self.sex == 2:
-        #     self.param_search['sex'] = 1
-        # b = datetime.datetime.now()
-        # dt = datetime.datetime.strptime(self.info['bdate'], '%d.%m.%Y')
-        # self.age = round((b - dt).days / 365)
-        # self.range = range
-        # self.list_people = []
+        #self.change_parametr()
 
     def change_parametr(self):
         # Изменяет по желанию критерии для поиска
@@ -94,37 +28,6 @@ class Search():
         # выполняет запросы для получения id города для поиска
         flag = input('- ')
         if flag.lower().startswith('д'):
-            # param_id_city = {'access_token': self.token,
-            #                  'v': 5.103,
-            #                  }
-            # print('Укажите страну для поиска. Россия - 1, Украина - 2, Беларусь - 3')
-            # while True:
-            #     try:
-            #         country_id = int(input('- '))
-            #         break
-            #     except ValueError:
-            #         continue
-            # if country_id in ['1', '2', '3']:
-            #     print('Укажите город для поиска')
-            #     city = input()
-            #     param_id_city['country_id'] = country_id
-            #     param_id_city['q'] = city
-            # response = requests.get('https://api.vk.com/method/database.getCities', params=param_id_city).json()
-            # self.param_search['city'] = response['response']['items'][0]['id']
-            # print('Укажите возраст кандидатов для поиска:')
-            # while True:
-            #     try:
-            #         self.age = int(input('- '))
-            #         break
-            #     except ValueError:
-            #         continue
-            # print('Укажите погрешность возраст для поиска:')
-            # while True:
-            #     try:
-            #         self.range = int(input('- '))
-            #         break
-            #     except ValueError:
-            #         continue
             self.parametr = self.get_parametr()
             info = Info(self.user_id, self.parametr, self.token)
             user_info = info.get_info()
@@ -275,8 +178,9 @@ is_friend, friend_status, career, military, blacklisted, blacklisted_by_me, can_
             list_groups_user = []
         except KeyError:
             list_groups_user = []
-        for interests in self.info['interests']:
-            interests_user.append(interests.lower().strip())  # получает список интересов пользователя из его данных
+        if 'interests' in self.info.keys():
+            for interests in self.info['interests']:
+                interests_user.append(interests.lower().strip())  # получает список интересов пользователя из его данных
         for people in tqdm(self.search_vk()['items'], ncols=100):  # Начисляет баллы совместимости
             count_compability = 0
             try:
